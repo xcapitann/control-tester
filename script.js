@@ -41,11 +41,11 @@ function updateGamepad() {
 
         // En la parte donde detectas el modelo:
     if (idLower.includes("xbox")) {
-           currentImg = imgXbox;
-           currentImg.className = "mando-xbox"; // Clase para Xbox
+            currentImg = imgXbox;
+            currentImg.className = "mando-xbox"; // Clase para Xbox
 }       else if (idLower.includes("sony")) {
-             currentImg = imgPs;
-             currentImg.className = "mando-ps"; // Clase para PS
+            currentImg = imgPs;
+            currentImg.className = "mando-ps"; // Clase para PS
 }
 
         // Ocultar las otras y mostrar la actual
