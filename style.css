@@ -7,44 +7,68 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
 }
 
 .container {
     background: #1e1e1e;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
     text-align: center;
-    min-width: 400px;
+    min-width: 450px;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    color: #00ceff;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 #status {
     font-weight: bold;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s;
+    margin-bottom: 25px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9em;
 }
 
-.connected { background-color: #2e7d32; }
-.disconnected { background-color: #c62828; }
+.connected { background-color: #2e7d32; border: 1px solid #4caf50; }
+.disconnected { background-color: #c62828; border: 1px solid #ef5350; }
 
 .image-container {
-    height: 250px;
+    height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 img {
     max-width: 100%;
     max-height: 100%;
-    display: none;
+    display: none; /* Ocultas por defecto */
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+    transition: filter 0.1s ease; /* Transición suave para el brillo */
+}
+
+/* --- CLASE DE BRILLO (ESTO ES LO NUEVO) --- */
+img.pressed {
+    /* Crea un brillo cian intenso alrededor de la silueta del control */
+    filter: drop-shadow(0 0 15px #00ceff) drop-shadow(0 0 30px #00ceff) contrast(1.2);
 }
 
 #controller-info {
-    margin-top: 15px;
-    color: #00ceff;
-    font-family: monospace;
+    margin-top: 20px;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 5px;
 }
