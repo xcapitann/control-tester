@@ -44,6 +44,36 @@ img {
     transition: filter 0.1s ease;
 }
 
+.sticks-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.stick-viewer {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #444;
+    border-radius: 50%;
+    position: relative;
+    background: #111;
+}
+
+.stick-dot {
+    width: 15px;
+    height: 15px;
+    background: #00ceff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px #00ceff;
+}
+
 /* --- COLORES DE BRILLO POR MARCA --- */
 
 /* PlayStation - Azul */
