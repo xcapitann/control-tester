@@ -70,6 +70,28 @@ function updateGamepad() {
             });
         }
 
+        // --- TESTEO DE PALANCAS (STICKS) ---
+        const dotL = document.getElementById('dot-l');
+        const dotR = document.getElementById('dot-r');
+
+        if (gp.axes.length >= 4) {
+            // Stick Izquierdo (Ejes 0 y 1)
+            let lx = gp.axes[0] * 35; // 35 es el radio del círculo
+            let ly = gp.axes[1] * 35;
+            dotL.style.transform = `translate(calc(-50% + ${lx}px), calc(-50% + ${ly}px))`;
+
+            // Stick Derecho (Ejes 2 y 3)
+            let rx = gp.axes[2] * 35;
+            let ry = gp.axes[3] * 35;
+            dotR.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`;
+            
+            // Si mueves mucho las palancas, también activamos el brillo
+            if (Math.abs(gp.axes[0]) > 0.2 || Math.abs(gp.axes[1]) > 0.2 || 
+                Math.abs(gp.axes[2]) > 0.2 || Math.abs(gp.axes[3]) > 0.2) {
+                anyPressed = true;
+            }
+        }
+        
         // Brillo general si se presiona cualquier cosa
         let anyPressed = gp.buttons.some(b => b.pressed);
         if (anyPressed) {
