@@ -1,40 +1,58 @@
-window.addEventListener("gamepadconnected", (e) => {
-    console.log("Gamepad conectado:", e.gamepad.id);
-    updateLoop();
-});
+const statusDiv = document.getElementById('status');
+const infoDiv = document.getElementById('controller-info');
+const imgPs = document.getElementById('img-ps');
+const imgXbox = document.getElementById('img-xbox');
+const imgGeneric = document.getElementById('img-generic');
 
-function updateLoop() {
+function updateGamepad() {
     const gamepads = navigator.getGamepads();
-    const gp = gamepads[0]; // Tomamos el primer control conectado
+    let gp = null;
+
+    // Buscar el mando activo
+    for (let i = 0; i < gamepads.length; i++) {
+        if (gamepads[i]) {
+            gp = gamepads[i];
+            break;
+        }
+    }
 
     if (gp) {
-        const id = gp.id.toLowerCase();
-        const nameDisplay = document.getElementById("controller-name");
-        const status = document.getElementById("status");
+        statusDiv.innerText = "CONECTADO";
+        statusDiv.className = "connected";
         
-        // Ocultar todas las imágenes primero
-        document.querySelectorAll('img').forEach(img => img.style.display = 'none');
+        const idLower = gp.id.toLowerCase();
+        
+        // Ocultar todas las imágenes antes de mostrar la correcta
+        imgPs.style.display = "none";
+        imgXbox.style.display = "none";
+        imgGeneric.style.display = "none";
 
-        // Lógica de identificación
-        if (id.includes("xbox") || id.includes("xinput")) {
-            nameDisplay.innerText = "Mando Detectado: Xbox One / 360";
-            document.getElementById("img-xbox").style.display = "block";
+        if (idLower.includes("xbox") || idLower.includes("xinput")) {
+            imgXbox.style.display = "block";
+            infoDiv.innerText = "Modelo: Xbox Series / One / 360";
         } 
-        else if (id.includes("sony") || id.includes("playstation") || id.includes("wireless controller")) {
-            // Nota: PS3 y PS4 a veces comparten el string "Wireless Controller"
-            nameDisplay.innerText = "Mando Detectado: PlayStation (PS3/PS4)";
-            document.getElementById("img-ps4").style.display = "block";
+        else if (idLower.includes("sony") || idLower.includes("playstation") || idLower.includes("wireless controller")) {
+            imgPs.style.display = "block";
+            infoDiv.innerText = "Modelo: PlayStation (DualShock)";
         } 
         else {
-            nameDisplay.innerText = "Mando Detectado: Genérico / Desconocido";
-            document.getElementById("img-generic").style.display = "block";
+            imgGeneric.style.display = "block";
+            infoDiv.innerText = "Modelo: Genérico / Desconocido";
         }
 
-        status.innerText = "Estado: Conectado y activo";
-        
-        // Aquí podrías agregar lógica para ver qué botones se presionan (gp.buttons)
-        requestAnimationFrame(updateLoop);
+        requestAnimationFrame(updateGamepad);
     } else {
-        document.getElementById("status").innerText = "Estado: Desconectado";
+        statusDiv.innerText = "DESCONECTADO";
+        statusDiv.className = "disconnected";
+        infoDiv.innerText = "Esperando señal...";
+        imgPs.style.display = "none";
+        imgXbox.style.display = "none";
+        imgGeneric.style.display = "none";
     }
 }
+
+window.addEventListener("gamepadconnected", updateGamepad);
+window.addEventListener("gamepaddisconnected", updateGamepad);
+
+// Revisar cada segundo por si el navegador no lanza el evento automáticamente
+setInterval(updateGamepad, 1000);
