@@ -98,3 +98,36 @@ window.addEventListener("gamepaddisconnected", () => {
 
 // Revisión de seguridad cada segundo por si el evento no dispara
 setInterval(updateGamepad, 1000);
+
+// --- NUEVA LÓGICA DE TESTEO DE BOTONES ---
+        const buttonsContainer = document.getElementById('buttons-display');
+        buttonsContainer.innerHTML = ""; // Limpiamos para redibujar
+
+        let anyButtonPressed = false;
+
+        gp.buttons.forEach((button, index) => {
+            // Crear el cuadrito del botón
+            const btnEl = document.createElement('div');
+            btnEl.className = 'btn-indicator';
+            btnEl.innerText = "B" + index;
+
+            // Si el botón está presionado físicamente
+            if (button.pressed) {
+                btnEl.classList.add('active');
+                anyButtonPressed = true;
+                
+                // Si quieres ver el valor exacto (para gatillos analógicos L2/R2)
+                if (button.value > 0) {
+                    btnEl.innerText += ` (${Math.round(button.value * 100)}%)`;
+                }
+            }
+
+            buttonsContainer.appendChild(btnEl);
+        });
+
+        // El brillo del control sigue funcionando igual
+        if (anyButtonPressed) {
+            currentImg.classList.add('pressed');
+        } else {
+            currentImg.classList.remove('pressed');
+        }
