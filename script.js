@@ -1,111 +1,114 @@
+/**
+ * Gamepad Tester Pro - Lógica de detección y efectos
+ * Desarrollado para xCapitann
+ */
+
 const statusDiv = document.getElementById('status');
 const infoDiv = document.getElementById('controller-info');
 const imgPs = document.getElementById('img-ps');
 const imgXbox = document.getElementById('img-xbox');
 const imgGeneric = document.getElementById('img-generic');
 
-let activeImageUrl = null; // Para rastrear qué imagen está visible
-
 function updateGamepad() {
+    // Obtenemos el estado de los mandos conectados
     const gamepads = navigator.getGamepads();
     let gp = null;
 
-    // 1. Buscar el mando activo
+    // Buscamos el primer mando que esté activo (que no sea null)
     for (let i = 0; i < gamepads.length; i++) {
         if (gamepads[i]) {
             gp = gamepads[i];
-            break;
+            break; 
         }
     }
 
     if (gp) {
+        // --- 1. ESTADO CONECTADO ---
         statusDiv.innerText = "CONECTADO";
         statusDiv.className = "connected";
         
         const idLower = gp.id.toLowerCase();
         let currentImg = null;
         
-        // 2. Determinar y mostrar la imagen correcta (solo si cambia)
-        if (idLower.includes("xbox") || idLower.includes("xinput")) {
+        // --- 2. DETECCIÓN DE MODELO ---
+        // Ocultamos todas primero para evitar que se encimen
+        imgPs.style.display = "none";
+        imgXbox.style.display = "none";
+        imgGeneric.style.display = "none";
+
+        if (idLower.includes("xbox") || idLower.includes("xinput") || idLower.includes("microsoft")) {
             currentImg = imgXbox;
             infoDiv.innerText = "Modelo: Xbox Series / One / 360";
         } 
         else if (idLower.includes("sony") || idLower.includes("playstation") || idLower.includes("wireless controller")) {
             currentImg = imgPs;
-            infoDiv.innerText = "Modelo: PlayStation (DualShock)";
+            infoDiv.innerText = "Modelo: PlayStation (DualShock / DualSense)";
         } 
         else {
             currentImg = imgGeneric;
             infoDiv.innerText = "Modelo: Genérico / Desconocido";
         }
 
-        // En la parte donde detectas el modelo:
-    if (idLower.includes("xbox")) {
-            currentImg = imgXbox;
-            currentImg.className = "mando-xbox"; // Clase para Xbox
-}       else if (idLower.includes("sony")) {
-            currentImg = imgPs;
-            currentImg.className = "mando-ps"; // Clase para PS
-}
-
-        // Ocultar las otras y mostrar la actual
-        [imgPs, imgXbox, imgGeneric].forEach(img => {
-            if (img !== currentImg) img.style.display = "none";
-        });
+        // Mostramos la imagen del mando detectado
         currentImg.style.display = "block";
 
-
-        // 3. --- LÓGICA DE BRILLO (ESTO ES LO NUEVO) ---
+        // --- 3. LÓGICA DE BRILLO ---
         let buttonPressed = false;
         
-        // Verificamos si CUALQUIER botón estándar está presionado
+        // Revisamos todos los botones físicos
         for (let j = 0; j < gp.buttons.length; j++) {
             if (gp.buttons[j].pressed) {
                 buttonPressed = true;
-                break; // Con uno que esté presionado, basta
+                break;
             }
         }
 
-        // Verificamos también los gatillos analógicos (L2/R2) si se configuran como ejes
-        if (gp.axes.length >= 4) {
-             // A veces L2/R2 son ejes 3 y 4. Verificamos si están muy presionados.
-             if (Math.abs(gp.axes[2]) > 0.8 || Math.abs(gp.axes[3]) > 0.8) {
-                 buttonPressed = true;
-             }
+        // Revisamos los ejes (Sticks o Gatillos analógicos como L2/R2)
+        // Algunos mandos reportan los gatillos como ejes con valores de -1 a 1 o 0 a 1
+        for (let k = 0; k < gp.axes.length; k++) {
+            if (Math.abs(gp.axes[k]) > 0.5) { // Si mueves el stick más de la mitad
+                buttonPressed = true;
+                break;
+            }
         }
 
-        // Aplicamos o quitamos la clase de brillo
+        // Aplicamos el efecto de brillo si se detecta actividad
         if (buttonPressed) {
             currentImg.classList.add('pressed');
+            // También hacemos que el contenedor brille un poco por si la imagen tiene fondo
+            document.querySelector('.container').style.boxShadow = "0 0 30px #00ceff";
         } else {
             currentImg.classList.remove('pressed');
+            document.querySelector('.container').style.boxShadow = "0 10px 40px rgba(0,0,0,0.7)";
         }
 
-        // Usamos requestAnimationFrame para una actualización ultra rápida
+        // Actualización constante para respuesta inmediata
         requestAnimationFrame(updateGamepad);
 
     } else {
-        // Estado Desconectado
-        statusDiv.innerText = "DESCONECTADO";
+        // --- 4. ESTADO DESCONECTADO ---
+        statusDiv.innerText = "DESCONECTADO - Presiona un botón";
         statusDiv.className = "disconnected";
-        infoDiv.innerText = "Esperando señal...";
-        [imgPs, imgXbox, imgGeneric].forEach(img => {
-            img.style.display = "none";
-            img.classList.remove('pressed'); // Asegurarnos de quitar el brillo
-        });
+        infoDiv.innerText = "Esperando señal del mando...";
+        
+        // Limpiamos todo
+        imgPs.style.display = "none";
+        imgXbox.style.display = "none";
+        imgGeneric.style.display = "none";
+        document.querySelector('.container').style.boxShadow = "0 10px 40px rgba(0,0,0,0.7)";
     }
 }
 
-// Eventos para iniciar/detener el bucle
-window.addEventListener("gamepadconnected", () => {
-    console.log("Mando conectado.");
+// Escuchamos cuando se conecta un mando
+window.addEventListener("gamepadconnected", (e) => {
+    console.log("Mando conectado: " + e.gamepad.id);
     updateGamepad();
 });
 
+// Escuchamos cuando se desconecta
 window.addEventListener("gamepaddisconnected", () => {
     console.log("Mando desconectado.");
-    // El bucle updateGamepad se encargará de limpiar la interfaz.
 });
 
-// Verificación de respaldo cada segundo
+// Revisión de seguridad cada segundo por si el evento no dispara
 setInterval(updateGamepad, 1000);
