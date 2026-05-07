@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamepad Tester Pro</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #1a1a1a; color: white; }
+        .controller-display { margin-top: 50px; }
+        img { width: 300px; display: none; margin: 0 auto; }
+        #status { font-size: 1.5em; color: #00ff00; }
+    </style>
+</head>
+<body>
+    <h1>Gamepad Tester</h1>
+    <div id="status">Presiona un botón en el control para empezar</div>
+    
+    <div class="controller-display">
+        <h2 id="controller-name">No detectado</h2>
+        <!-- Asegúrate de que las rutas coincidan con tus archivos en GitHub -->
+        <img id="img-ps4" src="ps4.png" alt="PS4 Controller">
+        <img id="img-xbox" src="xboxone.png" alt="Xbox Controller">
+        <img id="img-generic" src="https://via.placeholder.com/300?text=Control+Genérico" alt="Generic">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
