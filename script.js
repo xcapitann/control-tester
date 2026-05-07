@@ -50,84 +50,64 @@ function updateGamepad() {
             infoDiv.innerText = "Modelo: Genérico";
         }
 
-        // 3. MOSTRAR SOLO LA IMAGEN CORRESPONDIENTE
         currentImg.style.display = "block";
 
-        // 4. LÓGICA DE PRESIÓN (BRILLO)
-        let buttonPressed = false;
-        for (let j = 0; j < gp.buttons.length; j++) {
-            if (gp.buttons[j].pressed) {
-                buttonPressed = true;
-                break;
-            }
+        // --- 3. NUEVA LÓGICA DE TESTEO DE BOTONES ---
+        // Buscamos el contenedor de botones (asegúrate de tenerlo en el HTML)
+        const buttonsContainer = document.getElementById('buttons-display');
+        if (buttonsContainer) {
+            buttonsContainer.innerHTML = ""; // Limpiamos para redibujar
+            
+            gp.buttons.forEach((button, index) => {
+                const btnEl = document.createElement('div');
+                btnEl.className = 'btn-indicator';
+                
+                // Si el botón está presionado
+                if (button.pressed) {
+                    btnEl.classList.add('active');
+                    btnEl.innerText = "B" + index + " (OK)";
+                } else {
+                    btnEl.innerText = "B" + index;
+                }
+                
+                buttonsContainer.appendChild(btnEl);
+            });
         }
 
-        if (buttonPressed) {
+        // 4. LÓGICA DE PRESIÓN (BRILLO DEL CONTROL)
+        let anyButtonPressed = gp.buttons.some(b => b.pressed);
+
+        if (anyButtonPressed) {
             currentImg.classList.add('pressed');
         } else {
             currentImg.classList.remove('pressed');
         }
 
         requestAnimationFrame(updateGamepad);
+
     } else {
         // Estado desconectado
         statusDiv.innerText = "DESCONECTADO";
         statusDiv.className = "disconnected";
-        [imgPs, imgXbox, imgGeneric].forEach(img => img.style.display = "none");
-    }
-}
+        infoDiv.innerText = "Esperando señal del mando...";
+        [imgPs, imgXbox, imgGeneric].forEach(img => {
+            img.style.display = "none";
+            img.classList.remove('pressed');
+        });
         
-        // Limpiamos todo
-        imgPs.style.display = "none";
-        imgXbox.style.display = "none";
-        imgGeneric.style.display = "none";
-        document.querySelector('.container').style.boxShadow = "0 10px 40px rgba(0,0,0,0.7)";
+        const bDisplay = document.getElementById('buttons-display');
+        if (bDisplay) bDisplay.innerHTML = "";
     }
 }
 
-// Escuchamos cuando se conecta un mando
+// Eventos
 window.addEventListener("gamepadconnected", (e) => {
     console.log("Mando conectado: " + e.gamepad.id);
     updateGamepad();
 });
 
-// Escuchamos cuando se desconecta
 window.addEventListener("gamepaddisconnected", () => {
     console.log("Mando desconectado.");
 });
 
-// Revisión de seguridad cada segundo por si el evento no dispara
 setInterval(updateGamepad, 1000);
-
-// --- NUEVA LÓGICA DE TESTEO DE BOTONES ---
-        const buttonsContainer = document.getElementById('buttons-display');
-        buttonsContainer.innerHTML = ""; // Limpiamos para redibujar
-
-        let anyButtonPressed = false;
-
-        gp.buttons.forEach((button, index) => {
-            // Crear el cuadrito del botón
-            const btnEl = document.createElement('div');
-            btnEl.className = 'btn-indicator';
-            btnEl.innerText = "B" + index;
-
-            // Si el botón está presionado físicamente
-            if (button.pressed) {
-                btnEl.classList.add('active');
-                anyButtonPressed = true;
-                
-                // Si quieres ver el valor exacto (para gatillos analógicos L2/R2)
-                if (button.value > 0) {
-                    btnEl.innerText += ` (${Math.round(button.value * 100)}%)`;
-                }
-            }
-
-            buttonsContainer.appendChild(btnEl);
-        });
-
-        // El brillo del control sigue funcionando igual
-        if (anyButtonPressed) {
-            currentImg.classList.add('pressed');
-        } else {
-            currentImg.classList.remove('pressed');
-        }
