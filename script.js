@@ -22,6 +22,48 @@ function updateGamepad() {
         }
     }
 
+    // ... (dentro de la función updateGamepad, después de detectar gp)
+
+        const idLower = gp.id.toLowerCase();
+        let currentImg = null;
+        
+        // Limpiamos clases viejas para que no se mezclen los colores
+        imgPs.classList.remove('ps-style', 'xbox-style', 'generic-style');
+        imgXbox.classList.remove('ps-style', 'xbox-style', 'generic-style');
+
+        if (idLower.includes("xbox") || idLower.includes("xinput")) {
+            currentImg = imgXbox;
+            currentImg.classList.add('xbox-style'); // <--- ASIGNA VERDE
+            infoDiv.innerText = "Modelo: Xbox";
+        } 
+        else if (idLower.includes("sony") || idLower.includes("playstation") || idLower.includes("wireless controller")) {
+            currentImg = imgPs;
+            currentImg.classList.add('ps-style'); // <--- ASIGNA AZUL
+            infoDiv.innerText = "Modelo: PlayStation";
+        } 
+        else {
+            currentImg = imgGeneric;
+            currentImg.classList.add('generic-style'); // <--- ASIGNA BLANCO
+            infoDiv.innerText = "Modelo: Genérico";
+        }
+
+        // Mostrar solo la imagen actual
+        imgPs.style.display = (currentImg === imgPs) ? "block" : "none";
+        imgXbox.style.display = (currentImg === imgXbox) ? "block" : "none";
+        imgGeneric.style.display = (currentImg === imgGeneric) ? "block" : "none";
+
+        // Lógica de presionar botón
+        let buttonPressed = false;
+        for (let j = 0; j < gp.buttons.length; j++) {
+            if (gp.buttons[j].pressed) { buttonPressed = true; break; }
+        }
+
+        if (buttonPressed) {
+            currentImg.classList.add('pressed');
+        } else {
+            currentImg.classList.remove('pressed');
+        }
+
     if (gp) {
         // --- 1. ESTADO CONECTADO ---
         statusDiv.innerText = "CONECTADO";
