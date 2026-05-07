@@ -7,7 +7,6 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden; /* Evita barras de desplazamiento */
 }
 
 .container {
@@ -17,15 +16,8 @@ body {
     box-shadow: 0 10px 40px rgba(0,0,0,0.7);
     text-align: center;
     min-width: 450px;
-    position: relative;
-    z-index: 10;
-}
-
-h1 {
-    color: #00ceff;
-    margin-top: 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
 }
 
 #status {
@@ -33,52 +25,38 @@ h1 {
     margin-bottom: 25px;
     padding: 12px;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    font-size: 0.9em;
 }
 
-.connected { background-color: #2e7d32; border: 1px solid #4caf50; }
-.disconnected { background-color: #c62828; border: 1px solid #ef5350; }
+.connected { background-color: #2e7d32; }
+.disconnected { background-color: #c62828; }
 
 .image-container {
     height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 }
 
 img {
     max-width: 100%;
     max-height: 100%;
-    display: none; /* Ocultas por defecto */
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-    transition: filter 0.1s ease; /* Transición suave para el brillo */
+    display: none;
+    transition: filter 0.1s ease;
 }
 
-/* --- CLASE DE BRILLO (ESTO ES LO NUEVO) --- */
-img.pressed {
-    /* Crea un brillo cian intenso alrededor de la silueta del control */
-    filter: drop-shadow(0 0 15px #00ceff) drop-shadow(0 0 30px #00ceff) contrast(1.2);
+/* --- COLORES DE BRILLO POR MARCA --- */
+
+/* PlayStation - Azul */
+img.ps-style.pressed {
+    filter: drop-shadow(0 0 20px #0043ff) drop-shadow(0 0 40px #0043ff) !important;
 }
 
-#controller-info {
-    margin-top: 20px;
-    color: #888;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-    background: rgba(0,0,0,0.3);
-    padding: 10px;
-    border-radius: 5px;
+/* Xbox - Verde */
+img.xbox-style.pressed {
+    filter: drop-shadow(0 0 20px #107c10) drop-shadow(0 0 40px #107c10) !important;
 }
 
-/* Brillo azul para PlayStation */
-img.mando-ps.pressed {
-    filter: drop-shadow(0 0 20px #0043ff) drop-shadow(0 0 40px #0043ff);
-}
-
-/* Brillo verde para Xbox */
-img.mando-xbox.pressed {
-    filter: drop-shadow(0 0 20px #107c10) drop-shadow(0 0 40px #107c10);
+/* Genérico - Blanco */
+img.generic-style.pressed {
+    filter: drop-shadow(0 0 20px #ffffff) drop-shadow(0 0 40px #ffffff) !important;
 }
