@@ -39,6 +39,15 @@ function updateGamepad() {
             infoDiv.innerText = "Modelo: Genérico / Desconocido";
         }
 
+        // En la parte donde detectas el modelo:
+    if (idLower.includes("xbox")) {
+           currentImg = imgXbox;
+           currentImg.className = "mando-xbox"; // Clase para Xbox
+}       else if (idLower.includes("sony")) {
+             currentImg = imgPs;
+             currentImg.className = "mando-ps"; // Clase para PS
+}
+
         // Ocultar las otras y mostrar la actual
         [imgPs, imgXbox, imgGeneric].forEach(img => {
             if (img !== currentImg) img.style.display = "none";
