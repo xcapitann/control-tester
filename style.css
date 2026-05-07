@@ -72,3 +72,13 @@ img.pressed {
     padding: 10px;
     border-radius: 5px;
 }
+
+/* Brillo azul para PlayStation */
+img.mando-ps.pressed {
+    filter: drop-shadow(0 0 20px #0043ff) drop-shadow(0 0 40px #0043ff);
+}
+
+/* Brillo verde para Xbox */
+img.mando-xbox.pressed {
+    filter: drop-shadow(0 0 20px #107c10) drop-shadow(0 0 40px #107c10);
+}
