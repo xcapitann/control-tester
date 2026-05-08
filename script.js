@@ -79,11 +79,20 @@ function updateGamepad() {
             if (Math.abs(gp.axes[0]) > 0.1 || Math.abs(gp.axes[1]) > 0.1) anyPressed = true;
         }
 
-        // Efecto visual en la imagen
-        const currentImg = document.querySelector('.image-container img[style*="display: block"]');
+  // --- EFECTO VISUAL DE BRILLO ---
+        
+        // Creamos una lista de nuestras imágenes
+        const images = [imgPs, imgXbox, imgGeneric];
+        
+        // Buscamos cuál es la que está visible
+        let currentImg = images.find(img => img.style.display === "block");
+
         if (currentImg) {
-            if (anyPressed) currentImg.classList.add('pressed');
-            else currentImg.classList.remove('pressed');
+            if (anyPressed) {
+                currentImg.classList.add('pressed');
+            } else {
+                currentImg.classList.remove('pressed');
+            }
         }
 
         requestAnimationFrame(updateGamepad);
