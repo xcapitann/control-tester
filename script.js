@@ -121,5 +121,10 @@ window.addEventListener("gamepaddisconnected", () => {
     console.log("Mando desconectado.");
 });
 
-// Bucle de seguridad
-setInterval(updateGamepad, 1000);
+// BORRA ESTO: setInterval(updateGamepad, 1000);
+
+// USA ESTO EN SU LUGAR:
+function startLoop() {
+    updateGamepad();
+}
+startLoop(); // Inicia el ciclo de alta velocidad
