@@ -87,7 +87,7 @@ function updateGamepad() {
             }
         }
 
-        requestAnimationFrame(updateGamepad);;
+        requestAnimationFrame(updateGamepad);
 
     } else {
         // Estado cuando no hay mando
