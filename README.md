@@ -1,8 +1,10 @@
-![Visitas](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fxcapitann.github.io%2Fcontrol-tester%2F&count_bg=%2300CEFF&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false)
+![Visitas](https://komarev.com/ghpvc/?username=xcapitann&repo=control-tester&color=00CEFF&style=flat-square&label=VISITAS)
 # 🎮 Gamepad Tester Pro - by xCapitann
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Electron](https://img.shields.io/badge/Electron-Desktop_App-47848F?logo=electron&logoColor=white)
+![Portable](https://img.shields.io/badge/Windows-Portable-0078D4?logo=windows&logoColor=white)
 
 Una herramienta web profesional, rápida y precisa para probar el estado de tus mandos de consola (PlayStation, Xbox y Genéricos). Ideal para técnicos, modders y gamers que necesitan diagnosticar **stick drift** o fallos en los botones.
 
@@ -34,4 +36,26 @@ Si quieres usarlo de forma local o modificarlo:
 4. IMPORTANTE: Presiona cualquier botón para que el navegador active la detección.
 
 📸 Capturas de Pantalla
+
+![Electron](https://img.shields.io/badge/Electron-Desktop_App-47848F?logo=electron&logoColor=white)
+![Portable](https://img.shields.io/badge/Windows-Portable-0078D4?logo=windows&logoColor=white)
+## 📦 Descargas (Versión de Escritorio)
+
+Si prefieres usar la herramienta sin conexión a internet o directamente desde una memoria USB, puedes descargar la versión **Portable para Windows**:
+
+*   **🚀 [Descargar Gamepad Tester Pro v1.0.0 (.exe)](https://github.com/xcapitann/control-tester/releases/latest)**
+    *   *No requiere instalación.*
+    *   *Funciona 100% Offline.*
+    *   *Compatible con Windows 10 y 11.*
+
+---
+
+## 🛠️ Cómo usar la versión Portable
+
+1.  Ve a la sección de **Releases** de este repositorio.
+2.  Descarga el archivo `Gamepad-Tester-Pro-1.0.0.exe`.
+3.  Copia el archivo a tu PC o USB.
+4.  Haz doble clic para ejecutar. 
+    *   *Nota: Al ser un software nuevo, Windows SmartScreen podría mostrar un aviso. Solo haz clic en "Más información" y "Ejecutar de todas formas".*
+
 
