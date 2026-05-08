@@ -25,3 +25,12 @@ Si quieres usarlo de forma local o modificarlo:
 1. Clona este repositorio:
    ```bash
    git clone [https://github.com/xcapitann/control-tester.git](https://github.com/xcapitann/control-tester.git)
+
+2. Abre el archivo index.html en tu navegador favorito.
+
+3. Conecta tu mando por USB o Bluetooth.
+
+4. IMPORTANTE: Presiona cualquier botón para que el navegador active la detección.
+
+📸 Capturas de Pantalla
+
