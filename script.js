@@ -102,17 +102,3 @@ function updateGamepad() {
 }
 
 updateGamepad();
-
-    } else {
-        // Reset cuando se desconecta
-        statusDiv.innerText = "DESCONECTADO";
-        statusDiv.className = "disconnected";
-        buttonsCreated = false; // Permitir recrear botones al reconectar
-        if (buttonsContainer) buttonsContainer.innerHTML = "";
-        [imgPs, imgXbox, imgGeneric].forEach(img => img.style.display = "none");
-        
-        setTimeout(updateGamepad, 1000);
-    }
-}
-
-updateGamepad();
