@@ -148,3 +148,24 @@ img.generic-style.pressed {
 
   z-index: 100;
 }
+
+#visitor-counter {
+    position: absolute; /* Lo saca del flujo normal para que flote */
+    top: 20px;          /* Distancia desde arriba */
+    right: 20px;        /* Distancia desde la derecha */
+    z-index: 1000;      /* Se asegura de que esté por encima de todo */
+    background: rgba(0, 0, 0, 0.5); /* Un fondo oscuro semitransparente */
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #00CEFF; /* Un borde azul neón para que combine */
+    box-shadow: 0 0 10px rgba(0, 206, 255, 0.3);
+}
+
+/* Para que en celulares no tape nada importante */
+@media (max-width: 600px) {
+    #visitor-counter {
+        top: 10px;
+        right: 10px;
+        transform: scale(0.8); /* Lo hace un poco más pequeño en pantallas chicas */
+    }
+}
