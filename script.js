@@ -1,3 +1,4 @@
+// codigo bueno respaldo
 const statusDiv = document.getElementById('status');
 const infoDiv = document.getElementById('controller-info');
 const buttonsContainer = document.getElementById('buttons-display');
