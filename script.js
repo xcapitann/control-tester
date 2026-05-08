@@ -65,8 +65,8 @@ function updateGamepad() {
             dotL.style.transform = `translate(calc(-50% + ${lx}px), calc(-50% + ${ly}px))`;
 
             // Stick Derecho (Ejes 2 y 3)
-            let rx = gp.axes[2] * 35;
-            let ry = gp.axes[3] * 35;
+            let rx = gp.axes[2] * 40;
+            let ry = gp.axes[3] * 40;
             dotR.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`;
             
             // Si mueves mucho las palancas, también activamos el brillo
