@@ -70,8 +70,10 @@ img {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    /* Elimina cualquier línea que diga 'transition' aquí */
+    transform: translate(-50%, -50%); 
     box-shadow: 0 0 10px #00ceff;
+    will-change: transform; /* Esto le dice al navegador que use la tarjeta de video */
 }
 
 /* --- COLORES DE BRILLO POR MARCA --- */
