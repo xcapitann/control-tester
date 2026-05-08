@@ -17,7 +17,6 @@ Una herramienta web profesional, rápida y precisa para probar el estado de tus 
 
 Puedes probar la herramienta directamente aquí:
 👉 **(https://xcapitann.github.io/control-tester/)**
-*(Reemplaza el link de arriba con tu URL real de GitHub Pages)*
 
 ## 🛠️ Instalación y Uso
 
