@@ -60,8 +60,8 @@ function updateGamepad() {
 
         if (gp.axes.length >= 4) {
             // Stick Izquierdo (Ejes 0 y 1)
-            let lx = gp.axes[0] * 35; // 35 es el radio del círculo
-            let ly = gp.axes[1] * 35;
+            let lx = gp.axes[0] * 40; // 35 es el radio del círculo
+            let ly = gp.axes[1] * 40;
             dotL.style.transform = `translate(calc(-50% + ${lx}px), calc(-50% + ${ly}px))`;
 
             // Stick Derecho (Ejes 2 y 3)
