@@ -54,23 +54,7 @@ function updateGamepad() {
 
         currentImg.style.display = "block";
 
-        // TESTEO DE BOTONES
-        if (buttonsContainer) {
-            buttonsContainer.innerHTML = ""; // Limpiar para actualizar
-            gp.buttons.forEach((button, index) => {
-                const btnEl = document.createElement('div');
-                btnEl.className = 'btn-indicator';
-                if (button.pressed) {
-                    btnEl.classList.add('active');
-                    btnEl.innerText = "B" + index + " (ON)";
-                } else {
-                    btnEl.innerText = "B" + index;
-                }
-                buttonsContainer.appendChild(btnEl);
-            });
-        }
-
-        // --- TESTEO DE PALANCAS (STICKS) ---
+         // --- TESTEO DE PALANCAS (STICKS) ---
         const dotL = document.getElementById('dot-l');
         const dotR = document.getElementById('dot-r');
 
@@ -91,7 +75,23 @@ function updateGamepad() {
                 anyPressed = true;
             }
         }
-        
+
+        // TESTEO DE BOTONES
+        if (buttonsContainer) {
+            buttonsContainer.innerHTML = ""; // Limpiar para actualizar
+            gp.buttons.forEach((button, index) => {
+                const btnEl = document.createElement('div');
+                btnEl.className = 'btn-indicator';
+                if (button.pressed) {
+                    btnEl.classList.add('active');
+                    btnEl.innerText = "B" + index + " (ON)";
+                } else {
+                    btnEl.innerText = "B" + index;
+                }
+                buttonsContainer.appendChild(btnEl);
+            });
+        }
+         
         // Brillo general si se presiona cualquier cosa
         let anyPressed = gp.buttons.some(b => b.pressed);
         if (anyPressed) {
