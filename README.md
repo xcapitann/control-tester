@@ -35,3 +35,25 @@ Si quieres usarlo de forma local o modificarlo:
 
 📸 Capturas de Pantalla
 
+
+## 📦 Descargas (Versión de Escritorio)
+
+Si prefieres usar la herramienta sin conexión a internet o directamente desde una memoria USB, puedes descargar la versión **Portable para Windows**:
+
+*   **🚀 [Descargar Gamepad Tester Pro v1.0.0 (.exe)](https://github.com/xcapitann/control-tester/releases/latest)**
+    *   *No requiere instalación.*
+    *   *Funciona 100% Offline.*
+    *   *Compatible con Windows 10 y 11.*
+
+---
+
+## 🛠️ Cómo usar la versión Portable
+
+1.  Ve a la sección de **Releases** de este repositorio.
+2.  Descarga el archivo `Gamepad-Tester-Pro-1.0.0.exe`.
+3.  Copia el archivo a tu PC o USB.
+4.  Haz doble clic para ejecutar. 
+    *   *Nota: Al ser un software nuevo, Windows SmartScreen podría mostrar un aviso. Solo haz clic en "Más información" y "Ejecutar de todas formas".*
+
+![Electron](https://img.shields.io/badge/Electron-Desktop_App-47848F?logo=electron&logoColor=white)
+![Portable](https://img.shields.io/badge/Windows-Portable-0078D4?logo=windows&logoColor=white)
