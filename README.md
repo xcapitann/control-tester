@@ -1,3 +1,4 @@
+![Visitas](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fxcapitann.github.io%2Fcontrol-tester%2F&count_bg=%2300CEFF&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitas&edge_flat=false)
 # 🎮 Gamepad Tester Pro - by xCapitann
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
