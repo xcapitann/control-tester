@@ -1,11 +1,8 @@
-/**
- * Gamepad Tester Pro - Lógica de detección y efectos
- * Desarrollado para xCapitann
- */
-
 const statusDiv = document.getElementById('status');
 const infoDiv = document.getElementById('controller-info');
 const buttonsContainer = document.getElementById('buttons-display');
+const dotL = document.getElementById('dot-l');
+const dotR = document.getElementById('dot-r');
 const imgPs = document.getElementById('img-ps');
 const imgXbox = document.getElementById('img-xbox');
 const imgGeneric = document.getElementById('img-generic');
@@ -14,7 +11,7 @@ function updateGamepad() {
     const gamepads = navigator.getGamepads();
     let gp = null;
 
-    // Buscar el primer mando activo
+    // Buscamos el primer mando conectado
     for (let i = 0; i < gamepads.length; i++) {
         if (gamepads[i]) {
             gp = gamepads[i];
@@ -29,56 +26,37 @@ function updateGamepad() {
         const idLower = gp.id.toLowerCase();
         let currentImg = null;
         
-        // Ocultar todas y limpiar clases
-        [imgPs, imgXbox, imgGeneric].forEach(img => {
-            img.style.display = "none";
-            img.classList.remove('ps-style', 'xbox-style', 'generic-style');
-        });
+        // 1. Detección de mando y visibilidad
+        [imgPs, imgXbox, imgGeneric].forEach(img => img.style.display = "none");
 
-        // Detección de marca
         if (idLower.includes("xbox") || idLower.includes("xinput")) {
             currentImg = imgXbox;
-            currentImg.classList.add('xbox-style');
-            infoDiv.innerText = "Modelo detectado: Xbox";
-        } 
-        else if (idLower.includes("sony") || idLower.includes("playstation") || idLower.includes("wireless controller")) {
+            infoDiv.innerText = "Modelo: Xbox";
+        } else if (idLower.includes("sony") || idLower.includes("playstation")) {
             currentImg = imgPs;
-            currentImg.classList.add('ps-style');
-            infoDiv.innerText = "Modelo detectado: PlayStation";
-        } 
-        else {
+            infoDiv.innerText = "Modelo: PlayStation";
+        } else {
             currentImg = imgGeneric;
-            currentImg.classList.add('generic-style');
-            infoDiv.innerText = "Modelo detectado: Genérico";
+            infoDiv.innerText = "Modelo: Genérico";
         }
-
         currentImg.style.display = "block";
 
-         // --- TESTEO DE PALANCAS (STICKS) ---
-        const dotL = document.getElementById('dot-l');
-        const dotR = document.getElementById('dot-r');
-
+        // 2. Movimiento de Palancas (INSTANTÁNEO)
         if (gp.axes.length >= 4) {
-            // Stick Izquierdo (Ejes 0 y 1)
-            let lx = gp.axes[0] * 40; // 35 es el radio del círculo
-            let ly = gp.axes[1] * 40;
+            // Stick Izquierdo
+            let lx = gp.axes[0] * 35;
+            let ly = gp.axes[1] * 35;
             dotL.style.transform = `translate(calc(-50% + ${lx}px), calc(-50% + ${ly}px))`;
 
-            // Stick Derecho (Ejes 2 y 3)
-            let rx = gp.axes[2] * 40;
-            let ry = gp.axes[3] * 40;
+            // Stick Derecho
+            let rx = gp.axes[2] * 35;
+            let ry = gp.axes[3] * 35;
             dotR.style.transform = `translate(calc(-50% + ${rx}px), calc(-50% + ${ry}px))`;
-            
-            // Si mueves mucho las palancas, también activamos el brillo
-            if (Math.abs(gp.axes[0]) > 0.2 || Math.abs(gp.axes[1]) > 0.2 || 
-                Math.abs(gp.axes[2]) > 0.2 || Math.abs(gp.axes[3]) > 0.2) {
-                anyPressed = true;
-            }
         }
 
-        // TESTEO DE BOTONES
+        // 3. Testeo de Botones
         if (buttonsContainer) {
-            buttonsContainer.innerHTML = ""; // Limpiar para actualizar
+            buttonsContainer.innerHTML = "";
             gp.buttons.forEach((button, index) => {
                 const btnEl = document.createElement('div');
                 btnEl.className = 'btn-indicator';
@@ -91,40 +69,28 @@ function updateGamepad() {
                 buttonsContainer.appendChild(btnEl);
             });
         }
-         
-        // Brillo general si se presiona cualquier cosa
-        let anyPressed = gp.buttons.some(b => b.pressed);
+
+        // Brillo de imagen si hay actividad
+        let anyPressed = gp.buttons.some(b => b.pressed) || gp.axes.some(a => Math.abs(a) > 0.1);
         if (anyPressed) {
             currentImg.classList.add('pressed');
         } else {
             currentImg.classList.remove('pressed');
         }
 
+        // ESTA ES LA LÍNEA CLAVE: Hace que se repita el ciclo a máxima velocidad
         requestAnimationFrame(updateGamepad);
+
     } else {
-        // Estado desconectado
+        // Estado cuando no hay mando
         statusDiv.innerText = "DESCONECTADO - Presiona un botón";
         statusDiv.className = "disconnected";
-        infoDiv.innerText = "Esperando señal del mando...";
         [imgPs, imgXbox, imgGeneric].forEach(img => img.style.display = "none");
-        if (buttonsContainer) buttonsContainer.innerHTML = "";
+        
+        // Si no hay mando, revisamos cada segundo hasta que conectes uno
+        setTimeout(updateGamepad, 1000);
     }
 }
 
-// Eventos de conexión
-window.addEventListener("gamepadconnected", (e) => {
-    console.log("Mando conectado:", e.gamepad.id);
-    updateGamepad();
-});
-
-window.addEventListener("gamepaddisconnected", () => {
-    console.log("Mando desconectado.");
-});
-
-// BORRA ESTO: setInterval(updateGamepad, 1000);
-
-// USA ESTO EN SU LUGAR:
-function startLoop() {
-    updateGamepad();
-}
-startLoop(); // Inicia el ciclo de alta velocidad
+// Iniciar el tester
+updateGamepad();
