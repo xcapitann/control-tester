@@ -71,16 +71,23 @@ function updateGamepad() {
             });
         }
 
-        // Brillo de imagen si hay actividad
-        let anyPressed = gp.buttons.some(b => b.pressed) || gp.axes.some(a => Math.abs(a) > 0.1);
-        if (anyPressed) {
-            currentImg.classList.add('pressed');
-        } else {
-            currentImg.classList.remove('pressed');
+       // --- EFECTO VISUAL DE BRILLO ---
+        
+        // Creamos una lista de nuestras imágenes
+        const images = [imgPs, imgXbox, imgGeneric];
+        
+        // Buscamos cuál es la que está visible
+        let currentImg = images.find(img => img.style.display === "block");
+
+        if (currentImg) {
+            if (anyPressed) {
+                currentImg.classList.add('pressed');
+            } else {
+                currentImg.classList.remove('pressed');
+            }
         }
 
-        // ESTA ES LA LÍNEA CLAVE: Hace que se repita el ciclo a máxima velocidad
-        requestAnimationFrame(updateGamepad);
+        requestAnimationFrame(updateGamepad);;
 
     } else {
         // Estado cuando no hay mando
