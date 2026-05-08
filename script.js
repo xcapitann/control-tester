@@ -79,23 +79,28 @@ function updateGamepad() {
             if (Math.abs(gp.axes[0]) > 0.1 || Math.abs(gp.axes[1]) > 0.1) anyPressed = true;
         }
 
-  // --- EFECTO VISUAL DE BRILLO ---
-        
-        // Creamos una lista de nuestras imágenes
-        const images = [imgPs, imgXbox, imgGeneric];
-        
-        // Buscamos cuál es la que está visible
-        let currentImg = images.find(img => img.style.display === "block");
-
+        // Efecto visual en la imagen
+        const currentImg = document.querySelector('.image-container img[style*="display: block"]');
         if (currentImg) {
-            if (anyPressed) {
-                currentImg.classList.add('pressed');
-            } else {
-                currentImg.classList.remove('pressed');
-            }
+            if (anyPressed) currentImg.classList.add('pressed');
+            else currentImg.classList.remove('pressed');
         }
 
         requestAnimationFrame(updateGamepad);
+
+    } else {
+        // Reset cuando se desconecta
+        statusDiv.innerText = "DESCONECTADO";
+        statusDiv.className = "disconnected";
+        buttonsCreated = false; // Permitir recrear botones al reconectar
+        if (buttonsContainer) buttonsContainer.innerHTML = "";
+        [imgPs, imgXbox, imgGeneric].forEach(img => img.style.display = "none");
+        
+        setTimeout(updateGamepad, 1000);
+    }
+}
+
+updateGamepad();
 
     } else {
         // Reset cuando se desconecta
