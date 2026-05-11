@@ -1,5 +1,5 @@
 ![Visitas](https://komarev.com/ghpvc/?username=xcapitann&repo=control-tester&color=00CEFF&style=flat-square&label=VISITAS)
-# 🎮 Gamepad Tester Pro - by xCapitann
+# 🎮 Gamepad Tester Pro - by xCapitan N
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -58,4 +58,10 @@ Si prefieres usar la herramienta sin conexión a internet o directamente desde u
 4.  Haz doble clic para ejecutar. 
     *   *Nota: Al ser un software nuevo, Windows SmartScreen podría mostrar un aviso. Solo haz clic en "Más información" y "Ejecutar de todas formas".*
 
+---
 
+## ✒️ Autor
+
+*   **xCapitan N** - *Desarrollo y Diseño* - [xCapitann](https://github.com/xcapitann)
+
+---
