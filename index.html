@@ -7,51 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="top-welcome-bar">
+        <span id="location-text">Cargando...</span>
+    </div>
 
-	
-<div class="container">
+    <div id="visitor-counter">
+        <img src="https://komarev.com/ghpvc/?username=xcapitann&repo=control-tester&color=00CEFF&style=flat-square&label=VISITAS" alt="contador">
+    </div>
+
+    <div class="container">
         <h1>Gamepad Tester Pro</h1>
         <div id="status" class="disconnected">DESCONECTADO - Presiona un botón</div>
         
-     <div class="image-container">
-     <img id="img-ps" class="ps-style" src="image/ps4.png" alt="PS4">
-     <img id="img-xbox" class="xbox-style" src="image/xboxone.png" alt="Xbox">
-     <img id="img-generic" class="generic-style" src="image/generic.png" alt="Generic">
-</div>
+        <div class="image-container">
+            <img id="img-ps" class="ps-style" src="image/ps4.png" alt="PS4">
+            <img id="img-xbox" class="xbox-style" src="image/xboxone.png" alt="Xbox">
+            <img id="img-generic" class="generic-style" src="image/generic.png" alt="Generic">
+        </div>
 
         <div id="controller-info">Esperando señal...</div>
+
+        <div class="sticks-container">
+            <div>
+                <small>Stick Izquierdo (L3)</small>
+                <div class="stick-viewer"><div id="dot-l" class="stick-dot"></div></div>
+            </div>    
+            <div>
+                <small>Stick Derecho (R3)</small>
+                <div class="stick-viewer"><div id="dot-r" class="stick-dot"></div></div>
+            </div>
+        </div>
+
+        <div id="buttons-display" class="buttons-grid"></div>
     </div>
 
-    <div class="sticks-container">
-    <div>
-        <small>Stick Izquierdo (L3)</small>
-        <div class="stick-viewer"><div id="dot-l" class="stick-dot"></div></div>
-    </div>
-    <div>
-        <small>Stick Derecho (R3)</small>
-        <div class="stick-viewer"><div id="dot-r" class="stick-dot"></div></div>
-    </div>
-</div>
+    <div class="author">xCapitán N © 2026</div>
+    <div class="version">Control Tester - v1.0.0</div>
 
-<!-- El contenedor del contador -->
-<div id="visitor-counter">
-    <img src="https://komarev.com/ghpvc/?username=xcapitann&repo=control-tester&color=00CEFF&style=flat-square&label=VISITAS" alt="contador">
-</div>
-
-<!-- Debajo de <div id="controller-info">...</div> -->
-<div id="buttons-display" class="buttons-grid"></div>
-  
     <script src="script.js"></script>
- 
- </body>
-
-<!-- 👤 Autor -->
-  <div class="author">
-    Capitán N © 2026 
- <p>
-  <div class="version">
-	Control Tester - Version 1.0.0
-	</div>
-  </div>
- 
+</body>
 </html>
